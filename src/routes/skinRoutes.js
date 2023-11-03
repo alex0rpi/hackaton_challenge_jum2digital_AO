@@ -6,8 +6,9 @@ import {
   changeSkinColor,
   deleteSkin,
   getSingleSkin,
-  populate,
-} from '../controllers/index.js';
+  populateSkins,
+} from '../controllers/skinControllers/index.js';
+import { authenticate } from '../middleware/authenticate.js';
 
 const router = express.Router();
 
@@ -15,17 +16,17 @@ router.get('/', (req, res) => {
   res.render('welcome');
 });
 
-router.get('/skins/populate', populate);
-
 router.get('/skins/available', getSkins);
 
-router.post('/skins/buy', buySkin);
+router.get('/skins/populate', populateSkins);
 
-router.get('/skins/myskins', getUserSkins);
+router.post('/skins/buy', authenticate, buySkin);
 
-router.put('/skins/color', changeSkinColor);
+router.get('/skins/myskins', authenticate, getUserSkins);
 
-router.delete('/skins/delete/:id', deleteSkin);
+router.put('/skins/color', authenticate, changeSkinColor);
+
+router.delete('/skins/delete/:id', authenticate, deleteSkin);
 
 router.get('/skin/getskin/:id', getSingleSkin);
 
