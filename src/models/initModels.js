@@ -23,7 +23,7 @@ const sequelize = new Sequelize(
 function initModels(sequelize) {
   const User = _Users(sequelize, DataTypes);
   const Skin = _Skins(sequelize, DataTypes);
-  const UserSkin = _UserSkins(sequelize, User, DataTypes);
+  const UserSkin = _UserSkins(sequelize, User, Skin, DataTypes);
   return {
     User,
     Skin,

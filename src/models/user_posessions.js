@@ -1,8 +1,8 @@
-export default (sequelize, User, DataTypes) => {
+export default (sequelize, User, Skin, DataTypes) => {
   const UserSkin = sequelize.define(
     'users_skins',
     {
-      id: {
+      purchase_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -26,6 +26,12 @@ export default (sequelize, User, DataTypes) => {
 
   UserSkin.belongsTo(User, {
     foreignKey: 'userId',
+  });
+
+  // make it so each entry has a skinId, which comes from the skins table
+
+  UserSkin.belongsTo(Skin, {
+    foreignKey: 'skinId',
   });
 
   return UserSkin;
