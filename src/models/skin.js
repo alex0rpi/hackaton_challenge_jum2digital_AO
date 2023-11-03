@@ -24,8 +24,17 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      createdAt: {
+      skinTextureHeight: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      skinTextureWidth: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      skinTextureUrl: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       userName: {
         type: DataTypes.STRING,
