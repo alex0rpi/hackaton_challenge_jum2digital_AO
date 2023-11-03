@@ -46,10 +46,5 @@ export default (sequelize, DataTypes) => {
     }
   );
 
-  Skin.associate = (models) => {
-    Skin.belongsToMany(models.User, {
-      foreignKey: 'userId',
-    });
-  };
   return Skin;
 };

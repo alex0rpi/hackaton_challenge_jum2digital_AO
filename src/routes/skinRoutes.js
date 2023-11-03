@@ -6,9 +6,16 @@ import {
   changeSkinColor,
   deleteSkin,
   getSingleSkin,
+  populate,
 } from '../controllers/index.js';
 
 const router = express.Router();
+
+router.get('/', (req, res) => {
+  res.render('welcome');
+});
+
+router.get('/skins/populate', populate);
 
 router.get('/skins/available', getSkins);
 

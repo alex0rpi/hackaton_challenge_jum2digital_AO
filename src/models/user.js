@@ -17,11 +17,5 @@ export default (sequelize, DataTypes) => {
     }
   );
 
-  User.associate = (models) => {
-    User.hasMany(models.Skin, {
-      onDelete: 'cascade',
-    });
-  };
-
   return User;
 };

@@ -4,8 +4,8 @@
     "price": 100,
     "color": "#18c018",
     "type": "default",
-    "skinTextureWidth": 64,
     "skinTextureHeight": 64,
+    "skinTextureWidth": 64,
     "skinTextureUrl": "https://mskins.net/en/skin/Mb7-0zELK"
   },
   {
@@ -13,8 +13,8 @@
     "price": 110,
     "color": "#18c029",
     "type": "mob",
-    "skinTextureWidth": 64,
     "skinTextureHeight": 64,
+    "skinTextureWidth": 64,
     "skinTextureUrl": "https://mskins.net/en/skin/SmallCow-w4ZXg"
   },
   {
@@ -22,8 +22,8 @@
     "price": 95,
     "color": "#18c008",
     "type": "themed",
-    "skinTextureWidth": 64,
     "skinTextureHeight": 32,
+    "skinTextureWidth": 64,
     "skinTextureUrl": "https://mskins.net/en/skin/Spoidy-r4Bm4"
   },
   {
@@ -31,8 +31,8 @@
     "price": 80,
     "color": "#19c018",
     "type": "custom",
-    "skinTextureWidth": 32,
     "skinTextureHeight": 64,
+    "skinTextureWidth": 32,
     "skinTextureUrl": "https://mskins.net/en/skin/Mb7-0zELK"
   },
   {
@@ -40,8 +40,8 @@
     "price": 180,
     "color": "#18d018",
     "type": "narrow",
-    "skinTextureWidth": 64,
     "skinTextureHeight": 32,
+    "skinTextureWidth": 64,
     "skinTextureUrl": "https://mskins.net/en/skin/stanko_-5G3AZ"
   }
 ]

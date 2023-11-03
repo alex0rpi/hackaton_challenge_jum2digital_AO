@@ -3,6 +3,7 @@ import mysqlConfig from '../config/configMysql.js';
 
 import _Users from './user.js';
 import _Skins from './skin.js';
+import _UserSkins from './user_skins.js';
 
 import { designDB } from '../config/createMysqldb.js';
 
@@ -22,14 +23,15 @@ const sequelize = new Sequelize(
 function initModels(sequelize) {
   const User = _Users(sequelize, DataTypes);
   const Skin = _Skins(sequelize, DataTypes);
-  User.hasMany(Skin, { foreignKey: 'userId' });
+  const UserSkin = _UserSkins(sequelize, User, Skin);
   return {
     User,
     Skin,
+    UserSkin,
   };
 }
 
-const { User, Skin } = initModels(sequelize);
+const { User, Skin, UserSkin } = initModels(sequelize);
 
 const initDB = async () => {
   try {
@@ -44,4 +46,4 @@ const initDB = async () => {
   }
 };
 
-export { User, Skin, initDB as default };
+export { User, Skin, UserSkin, initDB as default };
