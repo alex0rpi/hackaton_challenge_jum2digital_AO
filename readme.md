@@ -56,6 +56,8 @@ Algunas consideraciones:
 - Para los fines de esta API se ha decidido emplear una autenticación muy básica únicamente por nombre único de usuario y sin contraseña.
 - Se ha estipulado que un usuario sólo pueda comprar un skin de cada modelo. Tratándose de skins, me parecía ilógico que uno pueda tener compras idénticas almacenadas. Pero también existía la opción de tener skins por duplicado a fin de poder modificar el color de sólo uno de ellos. Al final he optado por la primera opción.
 
+## ENDPOINTS
+
 ### Endpoints de User:
 
 - **GET /users** &rarr; Obtener todos los usuarios existentes.
@@ -81,7 +83,13 @@ Para poblar la tabla users, se puede registrar un nuevo usuario, o bien emplear 
 De igual manera que con users, se puede poblar la tabla de skins mediante el endpoint /populate, que mediante una función accesoria lee un archivo json del directorio /data que alberga objetos skin predefinidos.<br><br>
 \*\* Estos endpoints utilizan un middleware de autenticación, protegiendo el endpoint y lanzando un mensaje "forbidden" en caso de que el usuario no esté conectado.
 
-Por razones de simplicidad se ha optado por no emplear una autorización por json web token que podría estar almacenada en una cookie. En su lugar, se emplea una sesión de express en la que se almacena la información del usuario, una vez este se conecta a la API. Mientras el objeto req.session.user contenga el user, este podrá acceder a las rutas protegidas. Al hacer logout, la sesión de elimina y el acceso a los endpoints en cuestión queda restringido.
+## Middlewares
+
+- **authenticate.js**: Por razones de simplicidad se ha optado por no emplear una autorización por json web token que podría estar almacenada en una cookie. En su lugar, se emplea una sesión de express en la que se almacena la información del usuario, una vez este se conecta a la API. Authenticate comprobará que el objeto req.session.user contenga el user, y así este podrá acceder a los controladores correspondientes. Al hacer logout, la sesión de elimina y el acceso a los endpoints en cuestión queda restringido.
+
+- **notFound.js**: Cualquier endpoint sin especificar conduce a una respuesta 404 y un mensaje json "Nothing found here".
+
+- **errorMiddleware**: Se ha contemplado la casuística de que el formato del body enviado a través de postman no sea JSON. Ello es interceptado por un middleware que devuelve un mensaje informando de que el cuerpo del request debe tener formato JSON. Gracias a esta función, la app no deja de funcionar y no es necesario reiniciarla.
 
 ## Lenguajes y tecnologías empleadas👦•💻
 

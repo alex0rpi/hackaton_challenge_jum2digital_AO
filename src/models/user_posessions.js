@@ -28,8 +28,6 @@ export default (sequelize, User, Skin, DataTypes) => {
     foreignKey: 'userId',
   });
 
-  // make it so each entry has a skinId, which comes from the skins table
-
   UserSkin.belongsTo(Skin, {
     foreignKey: 'skinId',
   });
