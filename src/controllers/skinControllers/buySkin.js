@@ -9,11 +9,16 @@ export const buySkin = async (req, res) => {
     const existingSkin = await Skin.findOne({ where: { id: skinId } });
     if (!existingSkin) return res.status(404).json({ error: 'Skin does not exist' });
     const skin = existingSkin.get({ plain: true });
+    const userHasSkin = await UserSkin.findOne({
+      where: { userId: user.userId, name: skin.name },
+    });
+    if (userHasSkin) return res.status(400).json({ error: 'Skin already owned' });
     await UserSkin.create({
       name: skin.name,
       price: skin.price,
       color: skin.color,
       userId: user.userId,
+      skinId,
     });
     console.log('Skin purchased :)');
     return res.status(200).json({ message: 'Skin purchased :)' });
