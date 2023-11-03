@@ -15,17 +15,41 @@
       "
     >
       <h1>Welcome to this Skins API 👽</h1>
-      <h2>It is recommended to use Postman to mess up with it 🪧</h2>
+      <h2>Please use Postman🪧 or similar to try it out.</h2>
       <h3>Available endpoints:</h3>
-      <ul>
-        <li><a href="/skins/populate">GET /skins/populate</a></li>
-        <li><a href="/skins/available">GET /skins/available</a></li>
-        <li><a href="/skins/buy">POST /skins/buy</a></li>
-        <li><a href="/skins/myskins">GET /skins/myskins</a></li>
-        <li><a href="/skins/color">PUT /skins/color</a></li>
-        <li><a href="/skins/getskin">DELETE /skins/delete/:id</a></li>
-        <li><a href="/skin/getskin">GET /skin/getskin/:id</a></li>
-      </ul>
+      <div
+        style="
+          display: flex;
+          align-items: flex-start;
+          flex-direction: row;
+          justify-content: center;
+        "
+      >
+        <div>
+          <h4 style="text-align: center; text-decoration: underline">User routes</h4>
+          <ul>
+            <li><strong>GET</strong> /users</li>
+            <li><strong>GET</strong> /users/populate</li>
+            <li><strong>POST</strong> /users/register</li>
+            <li><strong>POST</strong> /users/login</li>
+            <li><strong>DELETE</strong> /users/delete</li>
+            <li><strong>POST</strong> /users/logout</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="text-align: center; text-decoration: underline">Skin routes</h4>
+          <ul>
+            <li><strong>GET</strong> /</li>
+            <li><strong>GET</strong> /skins/available</li>
+            <li><strong>GET</strong> /skins/populate</li>
+            <li><strong>POST</strong> /skins/buy</li>
+            <li><strong>GET</strong> /skins/myskins</li>
+            <li><strong>PUT</strong> /skins/color</li>
+            <li><strong>DELETE</strong> /skins/delete/:id</li>
+            <li><strong>GET</strong> /skin/getskin/:id</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </body>
 </html>
