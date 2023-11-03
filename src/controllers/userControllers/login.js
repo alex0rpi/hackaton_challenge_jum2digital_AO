@@ -13,7 +13,7 @@ export const login = async (req, res) => {
     // Convert the Sequelize instance to a plain JavaScript object
     const user = existingUser.get({ plain: true });
     req.session.user = user;
-    console.log('req.user: ', user);
+    // console.log('req.user: ', user);
     return res.status(201).json({ message: 'user logged in', user });
   } catch (error) {
     console.log('error: ', error);

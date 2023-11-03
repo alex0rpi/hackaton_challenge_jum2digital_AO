@@ -3,7 +3,7 @@ import mysqlConfig from '../config/configMysql.js';
 
 import _Users from './user.js';
 import _Skins from './skin.js';
-import _UserSkins from './user_skins.js';
+import _UserSkins from './user_posessions.js';
 
 import { designDB } from '../config/createMysqldb.js';
 
@@ -23,7 +23,7 @@ const sequelize = new Sequelize(
 function initModels(sequelize) {
   const User = _Users(sequelize, DataTypes);
   const Skin = _Skins(sequelize, DataTypes);
-  const UserSkin = _UserSkins(sequelize, User, Skin);
+  const UserSkin = _UserSkins(sequelize, User, DataTypes);
   return {
     User,
     Skin,
