@@ -42,5 +42,11 @@ export default (sequelize, DataTypes) => {
     }
   );
 
+  Skin.associate = (models) => {
+    Skin.hasMany(models.UserSkin, {
+      foreignKey: 'skinId',
+    });
+  };
+
   return Skin;
 };

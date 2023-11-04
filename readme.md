@@ -43,18 +43,21 @@ npm run dev
 - En el siguiente enlace se puede acceder a los endpoints preconfigurados en Postman.
   [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/25968116-e385a0dc-188c-4df8-9bfa-f47349e0ecd6?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D25968116-e385a0dc-188c-4df8-9bfa-f47349e0ecd6%26entityType%3Dcollection%26workspaceId%3D57d04225-0c95-4842-86b9-1798df87390b)
 
-## Descripción de la API
+# Descripción de la API
 
-Al ejecutar la API por primera vez, obtenemos una base de datos con 3 tablas:
+## Base de datos MySQL
 
-- **users**: listado de usuarios con su nombre (userName).
-- **skins**: listado de los objetos skin con sus propiedades.
-- **users_skins**: skins adquiridos por los usuarios. Contiene dos foreign keys que referencian al id del user comprador, y a la id de la skin adquirida.
+Al ejecutar la API por primera vez, obtenemos una base de datos con 3 tablas realizadas a partir de los modelos User, Skin y UserSkin:
 
-Algunas consideraciones:
+**users**: listado de usuarios con su nombre (userName).
+**skins**: listado de los objetos skin con sus propiedades.
+**user_skin_purchases**: skins adquiridos por los usuarios. Contiene dos foreign keys que referencian al id del user comprador, y a la id de la skin adquirida.
 
-- Para los fines de esta API se ha decidido emplear una autenticación muy básica únicamente por nombre único de usuario y sin contraseña.
+Consideraciones:
+
+- Se ha establicido una relación one-to-many entre users y user_skin_purchases, de manera que un user puede estar relacionado con varias compras. También se ha estipulado que si el usuario decide eliminarse del sistema, sus entradas asociadas en la tabla de compras también se suprimirán.
 - Se ha estipulado que un usuario sólo pueda comprar un skin de cada modelo. Tratándose de skins, me parecía ilógico que uno pueda tener compras idénticas almacenadas. Pero también existía la opción de tener skins por duplicado a fin de poder modificar el color de sólo uno de ellos. Al final he optado por la primera opción.
+- Un usuario puede suprimir una compra realizada, para así poder volver a adquirirla
 
 ## ENDPOINTS
 
@@ -63,9 +66,11 @@ Algunas consideraciones:
 - **GET /users** &rarr; Obtener todos los usuarios existentes.
 - **GET /users/populate** &rarr; Poblar la tabla de users en la base de datos.
 - **POST /users/register** &rarr; Registrar un nuevo usuario.
-- **POST /users/login** &rarr; Conectar usuario existente.
-- **DELETE /users/delete** &rarr; Eliminar todos los usuarios.
+- **POST /users/login** &rarr; Conectar usuario registrado.
+- **_DELETE /users/delete_** &rarr; \*\*Eliminar el usuario conectado.\*\*
 - **POST /users/logout** &rarr; Desconectar usuario.
+
+Para los fines de esta API se ha decidido emplear una autenticación muy básica únicamente por nombre único de usuario y sin contraseña.
 
 Para poblar la tabla users, se puede registrar un nuevo usuario, o bien emplear el endpoint populate, que utiliza una función accesoria que lee un archivo json del directorio /data. En él se encuentra una muestra de usuarios para agilizar el testeo de la API.<br>
 
@@ -85,7 +90,9 @@ De igual manera que con users, se puede poblar la tabla de skins mediante el end
 
 ## Middlewares
 
-- **authenticate.js**: Por razones de simplicidad se ha optado por no emplear una autenticación de usuario por json web token a la hora de acceder a ciertos endpoints. Aunque es una buena práctica, ello supondría tener que rellenar el campo Bearer Token en Postman una y otra vez para los endpoints protegidos y haría más impráctico el testeo de los endpoints. En su lugar, se emplea una sesión de Express en la que se almacena la información del usuario conectado. Authenticate.js comprobará que el objeto req.session.user contenga el user, y así este podrá acceder a los controladores correspondientes. Al hacer logout, la sesión de elimina y el acceso a los endpoints en cuestión queda restringido.
+- **authenticate.js**: Por razones de simplicidad se ha optado por no emplear una autorización de usuario por json web token. Aunque es una buena práctica, ello supondría tener que rellenar el campo Bearer Token en Postman una y otra vez para los endpoints protegidos y haría más impráctico el testeo de los endpoints. En su lugar, se emplea una sesión de Express en la que se almacena la información del usuario conectado. Authenticate.js comprobará que el objeto req.session.user contenga el user, y así este podrá acceder a los controladores correspondientes. Al hacer logout, la sesión de elimina y el acceso a los endpoints en cuestión queda restringido.
+
+-A fin de evitar cualquier ambigüedad entre autenticación y autorización, hacer constar que una vez un usuadio está autenticado, dispondrá de la autorización necesaria para acceder a cualquier endpoint. Empleo indistintamente los términos para esta API porque todos los usuarios tienen el mismo rol y privilegios una vez están conectados. En una aplicación más compleja existiría un middleware separado para autorizar, que comprobaría si un user autenticado, también dispone de los privilegios de rol para acceder a ciertos endpoints.
 
 - **notFound.js**: Cualquier endpoint sin especificar conduce a una respuesta 404 y un mensaje json "Nothing found here".
 

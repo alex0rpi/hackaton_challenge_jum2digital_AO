@@ -1,6 +1,6 @@
 export default (sequelize, User, Skin, DataTypes) => {
   const UserSkin = sequelize.define(
-    'users_skins',
+    'user_skin_purchases',
     {
       purchase_id: {
         type: DataTypes.INTEGER,
@@ -20,17 +20,32 @@ export default (sequelize, User, Skin, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      userId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: User,
+          key: 'userId',
+        },
+      },
+      skinId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: Skin,
+          key: 'id',
+        },
+      },
     },
     { timestamps: true }
   );
-
-  UserSkin.belongsTo(User, {
-    foreignKey: 'userId',
-  });
-
-  UserSkin.belongsTo(Skin, {
-    foreignKey: 'skinId',
-  });
+  UserSkin.associate = (models) => {
+    UserSkin.belongsTo(models.User, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE',
+    });
+    UserSkin.belongsTo(models.Skin, {
+      foreignKey: 'skinId',
+    });
+  };
 
   return UserSkin;
 };

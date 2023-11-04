@@ -20,8 +20,9 @@ export const buySkin = async (req, res) => {
       userId: user.userId,
       skinId,
     });
-    console.log('Skin purchased :)');
-    return res.status(200).json({ message: 'Skin purchased :)' });
+    return res
+      .status(200)
+      .json({ message: `User ${user.userName} purchased skin ${existingSkin.name} :)` });
   } catch (error) {
     console.log('error:', error);
     res.status(500).json({ error: error.message });
