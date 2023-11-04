@@ -1,11 +1,11 @@
 # API skins 💻🖥
 
 Este proyecto constituye la solución propuesta al reto planteado por **JUMP2DIGITAL**.
-Consiste en una API que permite a un usuario realizar operaciones básicas de consulta, modificación, eliminación y edición de entradas basadas en un modelo Skin. Dicha API emplea un servidor Node EXPRESS y una base de datos MySQL, que se configura mediante Sequelize.
+Consiste en una API que permite a un usuario realizar operaciones básicas de consulta, modificación, eliminación y edición de entradas basadas en un modelo Skin. Dicha API emplea un servidor Node EXPRESS y una base de datos MySQL, configurada mediante Sequelize.
 
 ## Nota personal 📝🙍🏻‍♂️
 
-Esta es mi primera participación en un reto de hackatón, espero haber cumplido con los requisitos funcionales y de buenas prácticas estipulados. En cualquier caso agradeceré cualquier feedback ya sea en respuesta a esta propuesta o in situ.
+Siendo esta mi primera participación en un reto de hackatón, espero haber cumplido con los requisitos funcionales y de buenas prácticas estipulados.
 
 ## Instalación 📦
 
@@ -48,8 +48,8 @@ npm run dev
 Al ejecutar la API por primera vez, obtenemos una base de datos con 3 tablas:
 
 - **users**: listado de usuarios con su nombre (userName).
-- **skins**: listado de todos los objetos skin con sus propiedades.
-- **users_skins**: skins adquiridos por los usuarios.
+- **skins**: listado de los objetos skin con sus propiedades.
+- **users_skins**: skins adquiridos por los usuarios. Contiene dos foreign keys que referencian al id del user comprador, y a la id de la skin adquirida.
 
 Algunas consideraciones:
 
@@ -85,11 +85,11 @@ De igual manera que con users, se puede poblar la tabla de skins mediante el end
 
 ## Middlewares
 
-- **authenticate.js**: Por razones de simplicidad se ha optado por no emplear una autorización por json web token que podría estar almacenada en una cookie. En su lugar, se emplea una sesión de express en la que se almacena la información del usuario, una vez este se conecta a la API. Authenticate comprobará que el objeto req.session.user contenga el user, y así este podrá acceder a los controladores correspondientes. Al hacer logout, la sesión de elimina y el acceso a los endpoints en cuestión queda restringido.
+- **authenticate.js**: Por razones de simplicidad se ha optado por no emplear una autenticación de usuario por json web token a la hora de acceder a ciertos endpoints. Aunque es una buena práctica, ello supondría tener que rellenar el campo Bearer Token en Postman una y otra vez para los endpoints protegidos y haría más impráctico el testeo de los endpoints. En su lugar, se emplea una sesión de Express en la que se almacena la información del usuario conectado. Authenticate.js comprobará que el objeto req.session.user contenga el user, y así este podrá acceder a los controladores correspondientes. Al hacer logout, la sesión de elimina y el acceso a los endpoints en cuestión queda restringido.
 
 - **notFound.js**: Cualquier endpoint sin especificar conduce a una respuesta 404 y un mensaje json "Nothing found here".
 
-- **errorMiddleware**: Se ha contemplado la casuística de que el formato del body enviado a través de postman no sea JSON. Ello es interceptado por un middleware que devuelve un mensaje informando de que el cuerpo del request debe tener formato JSON. Gracias a esta función, la app no deja de funcionar y no es necesario reiniciarla.
+- **errorMiddleware**: Se ha contemplado la casuística de que el formato del body enviado a través de postman no sea JSON. Ello es interceptado por un middleware que devuelve un mensaje informando de que el cuerpo del request debe tener formato JSON. Gracias a esta función, la app no deja de funcionar en ese caso y no es necesario reiniciarla.
 
 ## Lenguajes y tecnologías empleadas👦•💻
 
