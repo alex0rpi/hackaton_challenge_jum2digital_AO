@@ -3,10 +3,6 @@
 Este proyecto constituye la solución propuesta al reto planteado por **JUMP2DIGITAL**.
 Consiste en una API que permite a un usuario realizar operaciones básicas de consulta, modificación, eliminación y edición de entradas basadas en un modelo Skin. Dicha API emplea un servidor Node EXPRESS y una base de datos MySQL, configurada mediante Sequelize.
 
-## Nota personal 📝🙍🏻‍♂️
-
-Siendo esta mi primera participación en un reto de hackatón, espero haber cumplido con los requisitos funcionales y de buenas prácticas estipulados.
-
 ## Instalación 📦
 
 - Asegurarse de tener instalado el siguiente software:<br>
